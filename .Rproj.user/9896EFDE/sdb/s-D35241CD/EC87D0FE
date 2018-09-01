@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\nrequire(\"RMySQL\")\n\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata2<-dbGetQuery(con, \"SELECT * FROM crime_info\")\n\n\ntest2<-(data2)\np<-count(test2, c(\"DATE\",\"crime_type\"))\nef<-merge(test2, p, by=c(\"DATE\",\"crime_type\"), all.x=TRUE)\nef$latlong<-paste(ef$latitude, ef$longitude, sep=\":\")\nG6 <- gvisGeoChart(ef,\"latlong\",colorvar=\"freq\",sizevar='freq',hover=\"location\",options=list(width=600, height=600,enableScrollWheel=TRUE) )\nplot(G6)\nG7<-gvisGeoMap(ef,locationvar='latlong',numvar='freq',hovervar='crime_type',options=list(width=800,height=400,region='GB',dataMode='Markers'))\nplot(G7)\n\n",
+    "created" : 1509037565544.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "330685901",
+    "id" : "EC87D0FE",
+    "lastKnownWriteTime" : 1535811268,
+    "last_content_update" : 1535811268597,
+    "path" : "G:/codes and projects/crime prediction/plotting2.R",
+    "project_path" : "plotting2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

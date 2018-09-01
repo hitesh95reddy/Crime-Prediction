@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\nrequire(\"RMySQL\")\n\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata<-dbGetQuery(con, \"SELECT * FROM crime_info\")\n\n#data<-read.csv(\"G://Final project//data//a//crime_data.csv\")\n#data<-data[(c(5,6,11))]\n\nqplot(latitude,longitude , data = data, colour = crime_type)\nqmplot(longitude, latitude, data = (data), maptype = \"toner-lite\", color = crime_type, size = crime_type, legend = \"topleft\")\n",
+    "created" : 1509037902916.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3176607505",
+    "id" : "1FA9C5FF",
+    "lastKnownWriteTime" : 1535811277,
+    "last_content_update" : 1535811277290,
+    "path" : "G:/codes and projects/crime prediction/quickplotting.R",
+    "project_path" : "quickplotting.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\nrequire(\"RMySQL\")\n\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata<-dbGetQuery(con, \"SELECT * FROM crime_info where (crime_type!='Anti-social behaviour') and (crime_type!='Other theft') limit 52\")\n(data)\n\ntrain<-data[c(4,5)]\nhead(train)\nlab<-data$crime_type\nlat<-runif(10,52,54)\nlon<- runif(10,-3,-2)\ntest<-data.frame(latitude=lat,longitude=lon)\nans<-test\nhead(test)\n\nans$prediction<-(knn(train,test ,lab, k = 4, prob=TRUE))\nans$probability<-attr((knn(train,test ,lab, k = 3, prob=TRUE)), 'prob')\nans$textAddress <- mapply(FUN = function(lon, lat) revgeocode(c(lon, lat)), ans$longitude, ans$latitude)\nans\n#test\n#tested<-ans\n#tested\n#an <- mapply(FUN = function(lon, lat) revgeocode(c(-2.2473371, 51.51291)))\n#revgeocode(c(-2.2473371, 51.51291))\n\n",
+    "created" : 1509037723858.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3231861828",
+    "id" : "FF7315FB",
+    "lastKnownWriteTime" : 1535812299,
+    "last_content_update" : 1535812299207,
+    "path" : "G:/codes and projects/crime prediction/knnAlgo.R",
+    "project_path" : "knnAlgo.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\nrequire(\"RMySQL\")\n\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata2<-dbGetQuery(con, \"SELECT * FROM crime_info\")\n\ntest2=data2\ntail(test2)\ntest2$Year<-as.Date((as.character(substring(test2$DATE,1,10))))\np<-count(test2,c(\"Year\",\"crime_type\"))\n\n\nM <- gvisMotionChart(p, \"crime_type\", \"Year\", date.format = \"\\\\%Y\\\\%m\\\\%d\")\nplot(M)\n\n",
+    "created" : 1509036937434.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2845781250",
+    "id" : "F657D1EE",
+    "lastKnownWriteTime" : 1535811249,
+    "last_content_update" : 1535811249505,
+    "path" : "G:/codes and projects/crime prediction/motion_chart.R",
+    "project_path" : "motion_chart.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

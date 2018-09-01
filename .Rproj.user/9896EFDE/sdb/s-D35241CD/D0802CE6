@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n# Load the necessary packages\nlibrary(dplyr) \nlibrary(tidyr)\n\n# Read the data\ncrimes <- read.csv(\"G://Final project//data//a//crime_data.csv\", header = T)\n\ncrimes <- crimes %>% select(date = Month,\n                                                     location = Location,\n                                                    borough = Borough,\n                                                     \n                                                    category = Crime.type,\n                                                   long = Longitude,\n                                                  lat = Latitude)\n## Using ggplot2\nlibrary(ggplot2)\n\ndf <- crimes %>%\n  group_by(category, date) %>%\n  summarise(n = n())\n\nggplot(df, aes(x=category, y=date, fill=n)) +\n  geom_tile(aes(fill=n)) +\n  geom_text(aes(label=n), size=4, color=\"black\") +\n  scale_x_discrete(\"\", expand = c(0,0)) +\n  scale_y_discrete(\"\", expand = c(0,-2)) +\n  scale_fill_gradient(\"Frequency\", low = \"white\", high = \"steelblue\") +\n  theme_bw() + \n  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +\n  theme(axis.text=element_text(size=12)) +\n  theme(legend.position=\"none\") +\n  ggtitle(\"Crime levels in Manchester by month\\n\") +\n  theme(plot.title = element_text(face=\"bold\", size=\"20\"))\n\nggsave(\"calendar_heatmap.png\", scale = 1, dpi = 300)\n",
+    "created" : 1509041259349.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2284909622",
+    "id" : "D0802CE6",
+    "lastKnownWriteTime" : 1510730181,
+    "last_content_update" : 1510730181,
+    "path" : "G:/Final project/calendar_heatmap.R",
+    "project_path" : "calendar_heatmap.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

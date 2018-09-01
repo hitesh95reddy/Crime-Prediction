@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\nrequire(\"RMySQL\")\n\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata2<-dbGetQuery(con, \"SELECT * FROM crime_info\")\n\ntest2=data2\np<-count(test2, c(\"DATE\",\"crime_type\"))\ncenter_lat=(median(data2$latitude ))\ncenter_long=(median(data2$longitude ))\nef<-merge(test2, p, by=c(\"DATE\",\"crime_type\"), all.x=TRUE)\nmax(ef$freq)\nmap <- GetMap(center=c(center_lat,center_long), zoom=11,size=c(640,640),destfile = file.path(tempdir(),\"meuse.png\"),maptype=\"mobile\", SCALE = 1);\nbubbleMap(ef, coords = c(\"longitude\",\"latitude\"), map=map,zcol='freq', key.entries = 100+ 100 * c(10,20,30,40,50))\n",
+    "created" : 1509037222073.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1056198384",
+    "id" : "96C68674",
+    "lastKnownWriteTime" : 1535811259,
+    "last_content_update" : 1535811259819,
+    "path" : "G:/codes and projects/crime prediction/frequency_plot.R",
+    "project_path" : "frequency_plot.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

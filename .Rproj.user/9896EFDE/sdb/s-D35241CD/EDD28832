@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata1<-dbGetQuery(con, \"SELECT * FROM crime_info where (crime_type!='public order') and (crime_type!='Bicycle theft') and (crime_type!='Anti-social behaviour') and (crime_type!='Theft from the person') and (crime_type!='Other theft') and (crime_type!='vehicle crime') limit 83\")\ndata2<-dbGetQuery(con, \"SELECT * FROM crime_info where (crime_type='Anti-social behaviour') limit 17\" )\n\ninfo_needed<-(rbind(data1,data2))\ninfo_needed<-info_needed[c(5,4,3)]\ninfo_needed\nmodel <- naiveBayes(crime_type ~ ., data = info_needed, laplace=3)\npred <- predict(model, info_needed)\npred\ntable(pred, info_needed$crime_type)\nmodel\n(info_needed[100,-3])\n\npredict(model, info_needed[100,-3])\na\nplot(model$apriori)\n?naiveBayes\n?predict\ndata(Titanic)\n(Titanic)\nm <- naiveBayes(Survived ~ ., data = Titanic)\nm\npredict(m, as.data.frame(Titanic))\n",
+    "created" : 1509038257452.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "703224251",
+    "id" : "EDD28832",
+    "lastKnownWriteTime" : 1535812314,
+    "last_content_update" : 1535812314675,
+    "path" : "G:/codes and projects/crime prediction/naiveBayes.R",
+    "project_path" : "naiveBayes.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

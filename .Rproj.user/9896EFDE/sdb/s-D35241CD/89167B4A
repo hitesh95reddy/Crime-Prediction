@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(\"plyr\")\nrequire(\"ggmap\")\nrequire(\"class\")\nrequire(\"googleVis\")\nrequire(\"RgoogleMaps\")\nrequire(\"e1071\")\nrequire(\"RMySQL\")\n\ncon <- dbConnect(RMySQL::MySQL(), dbname = \"proj_crime_data\",host = \"127.0.0.1\",port=3306,user=\"root\",password=\"XXX\")\ndata<-dbGetQuery(con, \"SELECT * FROM crime_info\")\n\ninfo_needed<-data\n\nlatlong<-data.frame(latlong=paste(info_needed$latitude , info_needed$longitude , sep = \":\"))\n\ninfo<-data.frame(info=paste(data$location,\" ,\",\"crime:\",data$crime_type,sep=\"\"))\n\nplotdata<-data.frame(places=info_needed$location,latlong=latlong,info=info$info)\nsites<-gvisMap(plotdata,locationvar=\"latlong\",tipvar=\"info\",options = list(displayMode=\"Markers\",mapType=\"hybrid\", enableScrollWheel=TRUE))\n\nplot(sites)\nhead(data)\n",
+    "created" : 1509034953936.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1897943057",
+    "id" : "89167B4A",
+    "lastKnownWriteTime" : 1535811233,
+    "last_content_update" : 1535811233238,
+    "path" : "G:/codes and projects/crime prediction/plot_the_points.R",
+    "project_path" : "plot_the_points.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
